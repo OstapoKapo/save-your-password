@@ -1,9 +1,9 @@
-import React,{useRef, useState} from 'react';
+import React,{useEffect, useRef, useState} from 'react';
 import './SignUp.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function SignUp({user, setUser}) {
   
   const navigate = useNavigate()
 
@@ -56,7 +56,6 @@ async function sendSignUpData(e) {
   }
 
 };
-
 
   return (
     <div className="signUp">
