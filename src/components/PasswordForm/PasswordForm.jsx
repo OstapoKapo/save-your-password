@@ -52,7 +52,7 @@ export default function PasswordForm({user, setUser}) {
         setServiceName('');
         setPassword('');
     }catch (err){
-        console.log(`Error saving pass ${err}`)
+        console.log(`Error saving password ${err}`)
     }
   }
 
