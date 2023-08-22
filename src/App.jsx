@@ -13,14 +13,15 @@ import SignUp from './components/SignUp/SignUp';
 function App() {
 
   const [user, setUser] = useState(false);
+  const [typeReg, setTypeReg] = useState(true)
 
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Welcome  />} />
-        <Route path="/LogIn" element={<LogIn  user={user} setUser={setUser}/>} />
-        <Route path="/SignUp" element={<SignUp  user={user} setUser={setUser}/>} />
-        <Route path="/PasswordForm" element={<PasswordForm  user={user} setUser={setUser}/>} />
+        <Route path="/LogIn" element={<LogIn  user={user} setUser={setUser} typeReg={typeReg} setTypeReg={setTypeReg}/>} />
+        <Route path="/SignUp" element={<SignUp  user={user} setUser={setUser} typeReg={typeReg} setTypeReg={setTypeReg}/>} />
+        <Route path="/PasswordForm" element={<PasswordForm  user={user} setUser={setUser } typeReg={typeReg} setTypeReg={setTypeReg}/>} />
       </Routes>
     </Router>
   );

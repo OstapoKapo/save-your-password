@@ -1,9 +1,11 @@
 import React,{useEffect, useRef, useState} from 'react';
 import './SignUp.css';
+import Google from './img/google.png'
+import Github from './img/github.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp({user, setUser}) {
+export default function SignUp({user, setUser, typeReg, setTypeReg}) {
   
   const navigate = useNavigate()
 
@@ -18,6 +20,7 @@ export default function SignUp({user, setUser}) {
   }
 
   const googleFunction = () => {
+    setTypeReg(true)
     window.open('http://localhost:3001/auth/google', '_self')
   }
 
@@ -35,21 +38,24 @@ const handleChange = (e) => {
       ...prevValues,
       [name]: value,
     }));
-    console.log(inputValues);
 };
 
 async function sendSignUpData(e) {
 
   e.preventDefault();
-
+  setTypeReg(false)
   try {
+    if(inputValues.signUp__inputEmail.length === 0 || inputValues.signUp__inputPassword.length === 0 || inputValues.signUp__inputName.length === 0 || inputValues.signUp__inputSurname.length === 0 ){
+      alert('please write your info')
+    }else{
       await axios.post('http://localhost:3001/signup-data', {inputValues})
       .then((response) => {
-          response.status === 200 ? navigate('/PasswordForm') : alert('somethin went wrong');
+          response.status === 200 ? navigate('/PasswordForm') : console.log('error');
       })
       .catch((error) => {
           console.error('Error:', error);
-      });
+      }); 
+    }
   }
   catch(error) {
       console.log(error);
@@ -68,9 +74,12 @@ async function sendSignUpData(e) {
           <input type="checkbox"  onClick={handlePasVisibility}/>Show Password
         </div>
         <button type='submit' className='signUp__btn' onClick={sendSignUpData}>Sign Up</button>
-        
       </form>
-      <button onClick={googleFunction}>sadasdas</button>
+      <div className="signUp__row">
+        <div onClick={googleFunction} className="signUp__googleAuth">
+          <img src={Google} alt="Google" />
+        </div>
+      </div>
     </div>
   )
 }
