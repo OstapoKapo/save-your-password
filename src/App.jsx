@@ -7,7 +7,7 @@ import Header from './components/Header/Header';
 import Welcome from './components/Welcome/Welcome';
 import LogIn from './components/LogIn/LogIn';
 import SignUp from './components/SignUp/SignUp';
-import Google from './components/Google/Google';
+
 
 
 function App() {
