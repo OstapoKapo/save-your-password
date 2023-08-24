@@ -14,7 +14,7 @@ export default function ChoosePage({page, setPage}) {
         child.classList.remove('choosePage__item_active')
         }
       }
-      if(target.classList.contains('choosePage__item_active') === false){
+      if(!target.classList.contains('choosePage__item_active')){
         target.classList.add('choosePage__item_active');
         setPage(current => !current)
       }

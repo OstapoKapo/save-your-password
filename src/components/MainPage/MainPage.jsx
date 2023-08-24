@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios'
 import './MainPage.css';
-import ChoosePage from './ChoosePage/ChoosePage'
+import ChoosePage from './ChoosePage/ChoosePage';
 import Header from '../Header/Header';
-import SetPassword from './setPassword/SetPassword'
+import SetPassword from './setPassword/SetPassword';
+import SeePassword from './SeePassword/SeePassword';
 
 
 export default function MainPage({user, setUser, typeReg, setTypeReg}) {
 
-  const [serviceName, setServiceName] = useState('');
-  const [password, setPassword] = useState('');
   const [page, setPage] = useState(true);
 
     useEffect(()=>{
@@ -44,7 +42,7 @@ export default function MainPage({user, setUser, typeReg, setTypeReg}) {
     <div className="mainPage">
         <Header name={user.name} given_name={user.given_name} family_name={user.family_name} avatar={user.picture}/>
         <ChoosePage page={page} setPage={setPage}/>
-        {page ? <SetPassword user={user}/> : <h1>seePassword</h1> }
+        {page ? <SetPassword user={user}/> : <SeePassword user={user} />} 
     </div>
   )
 }
