@@ -1,0 +1,31 @@
+.choosePage {
+  width: 400px;
+  border-radius: 30px;
+  border: 1px solid #000;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+.choosePage .choosePage__item {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 17px;
+}
+.choosePage .choosePage__item:first-child {
+  border-right: 1px solid #000;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.choosePage .choosePage__item:last-child {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.choosePage .choosePage__item_active {
+  background-color: #FFC700;
+}

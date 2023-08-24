@@ -50,7 +50,12 @@ async function sendSignUpData(e) {
     }else{
       await axios.post('http://localhost:3001/signup-data', {inputValues})
       .then((response) => {
-          response.status === 200 ? navigate('/PasswordForm') : console.log('error');
+        if(response.status !== 404){
+          navigate('/mainPage') 
+          setUser(response.data)
+        }else{
+          alert('somethin went wrong');
+        }
       })
       .catch((error) => {
           console.error('Error:', error);

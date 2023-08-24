@@ -34,9 +34,9 @@ async function sendSignUpData(e) {
   try {
       await axios.post('http://localhost:3001/login', {inputValues})
       .then((response) => {
-        console.log(response)
-          if(response.status === 200){
-            navigate('/PasswordForm') 
+
+          if(response.status !==404 ){
+            navigate('/mainPage') 
             setUser(response.data)
           }else{
             alert('somethin went wrong');
