@@ -1,19 +1,21 @@
 import React,{useState} from 'react';
 import './SetPassword.css';
 import axios from 'axios';
+import CryptoJS from 'crypto-js'
 import { useNavigate } from 'react-router-dom';
 
 export default function SetPassword({user, setPage}) {
 
     const navigate = useNavigate();
 
+    const secretPass = "XkhZG4fW2t2W";
 
     const email = user.email
 
     const [inputValues, setInputValues] = useState({
         setPassword__nameInp: '',
         setPassword__passwordInp:'',
-        setPassword__views:0,
+        setPassword__views:0
     });
 
     const handleChange = (e) => {
@@ -22,12 +24,19 @@ export default function SetPassword({user, setPage}) {
           ...prevValues,
           [name]: value,
         }));
-        console.log(inputValues);
     };
 
     const generatePassword = () => {
+
+      let chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let charLength = chars.length;
+      let result = '';
+      for ( var i = 0; i < 6; i++ ) {
+         result += chars.charAt(Math.floor(Math.random() * charLength));
+      }
+
       setInputValues({
-        setPassword__passwordInp:'fdsfdfs',
+        setPassword__passwordInp:result,
         setPassword__nameInp: inputValues.setPassword__nameInp,
         setPassword__views: 0
       })
@@ -36,20 +45,23 @@ export default function SetPassword({user, setPage}) {
 
     async function sendNewApp(e) {
         e.preventDefault();
+        const encryptPassword = CryptoJS.AES.encrypt(
+          JSON.stringify(inputValues.setPassword__passwordInp),
+          secretPass
+        ).toString();
+
+        const time = Date.now();
+    
         setInputValues({
-          setPassword__nameInp: '',
-          setPassword__passwordInp:'',
+          setPassword__passwordInp: '',
+          setPassword__nameInp:'',
           setPassword__views:0,
       })
+
+      
         try {
-            await axios.post('http://localhost:3001/newApp', {inputValues,email})
+            await axios.post('http://localhost:3001/newApp', {inputValues, email, encryptPassword, time})
             .then((response) => {
-              setInputValues({
-                setPassword__nameInp: '',
-                setPassword__passwordInp:'',
-                setPassword__views:0,
-            })
-              console.log(response)
                 if(response.status !== 404){
                  navigate('/mainPage')
                 }else{
