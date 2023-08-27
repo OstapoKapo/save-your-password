@@ -1,9 +1,15 @@
 import React,{useState, useRef, useEffect} from 'react';
-import './SeePassword.css'
+import './SeePassword.css';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import PasswordItems from './PasswordItems/PasswordItems';
 
-export default function SeePassword() {
+export default function SeePassword({user}) {
 
+  const [passwords, setPasswords] = useState(null);
   const filter = useRef(null);
+  const email = user.email;
+  const navigate = useNavigate();
 
   const handleFilter = (e) => {
     let target = e.target;
@@ -20,6 +26,26 @@ export default function SeePassword() {
     }
   }
 
+  useEffect(()=>{
+   async function getPasswords () {
+        try {
+            await axios.post('http://localhost:3001/takePasswords', {email})
+            .then((response) => {
+              setPasswords(response.data)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+        catch(error) {
+            console.log(error);
+        }
+    }
+    getPasswords()
+  },[])
+
+  console.log(passwords);
+
   return (
     <div className="seePassword">
         <div className="seePassword__item">
@@ -35,10 +61,7 @@ export default function SeePassword() {
         <div className="seePassword__item seePassword__item_center">
           <h1 className='seePassword__header'>All Your Passwords 🔑</h1>
           <div className="seePassword__item__main seePassword__item__main_center">
-            <div className="seePassword__contentBlock">
-                <div className="seePassword__contentBlock__text">Google</div>
-                <input type="text" className='seePassword__contentBlock__input' value={'dasdasdasdasda'}/>
-            </div>
+           {passwords ? passwords.map((item) => <PasswordItems key={item._id} appName={item.appName} appPassword={item.appPassword}/>) : '' }
           </div>
         </div>
         <div className="seePassword__item">

@@ -6,6 +6,7 @@ import SetPassword from './setPassword/SetPassword';
 import SeePassword from './SeePassword/SeePassword';
 
 
+
 export default function MainPage({user, setUser, typeReg, setTypeReg}) {
 
   const [page, setPage] = useState(true);
@@ -42,7 +43,7 @@ export default function MainPage({user, setUser, typeReg, setTypeReg}) {
     <div className="mainPage">
         <Header name={user.name} given_name={user.given_name} family_name={user.family_name} avatar={user.picture}/>
         <ChoosePage page={page} setPage={setPage}/>
-        {page ? <SetPassword user={user}/> : <SeePassword user={user} />} 
+        {page ? <SetPassword page={page} setPage={setPage} user={user}/> : <SeePassword user={user} />} 
     </div>
   )
 }
