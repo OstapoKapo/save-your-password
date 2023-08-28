@@ -9,11 +9,11 @@ export default function SeePassword({user}) {
 
   let [passwords, setPasswords] = useState(null);
 
+  let [searchInput, setSearchInput] = useState("");
+
   const filter = useRef(null);
 
   const email = user.email;
-
-  const navigate = useNavigate();
 
   const handleFilter = (e) => {
     let target = e.target;
@@ -47,6 +47,45 @@ export default function SeePassword({user}) {
     }
   }
 
+
+  const inputHandle= (e) => {
+    let lowerCase = e.target.value.toLowerCase();
+    setSearchInput(lowerCase);
+  } 
+
+  useEffect(() =>{
+    async function searchHandle (){
+      let passwrods = []
+      try {
+        await axios.post('http://localhost:3001/takePasswords', {email})
+        .then((response) => {
+          passwrods = response.data
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+    catch(error) {
+        console.log(error);
+    }
+      if(passwords){
+        let newPasswords = passwrods.filter((el) => {
+          if (searchInput === '') {
+            return el;
+        }
+        //return the item which contains the user input
+        else {
+            return el.appName.toLowerCase().includes(searchInput)
+        }
+        })
+        setPasswords(newPasswords)
+      }  
+  }  
+  searchHandle()
+  },[searchInput])
+
+
+
   useEffect(()=>{
    async function getPasswords () {
         try {
@@ -74,10 +113,11 @@ export default function SeePassword({user}) {
                 <div data-action='mostUsed' className="seePassword__filter__item">The Most Used</div>
                 <div data-action='oldest' className="seePassword__filter__item">The Oldest</div>
             </div>
+            <input type="text" className='seePassword__searchInp' name='seePassword__searchInp' placeholder='Search...'  value={searchInput}  onChange={inputHandle}/>
           <div className="seePassword__itemsContainer">
-            {passwords ? passwords.map((item) => <PasswordItems key={item._id} appName={item.appName} appPassword={item.appPassword}/>) : '' }
+            {passwords ? passwords.map((item) => <PasswordItems passwords={passwords} setPasswords={setPasswords} email={email} key={item._id} id={item._id} appName={item.appName} appPassword={item.appPassword}/>) : '' }
           </div>
         </div>
     </div>
   )
-}
+  }
