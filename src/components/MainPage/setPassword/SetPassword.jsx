@@ -45,10 +45,7 @@ export default function SetPassword({user, setPage}) {
 
     async function sendNewApp(e) {
         e.preventDefault();
-        const encryptPassword = CryptoJS.AES.encrypt(
-          JSON.stringify(inputValues.setPassword__passwordInp),
-          secretPass
-        ).toString();
+        const encryptPassword = CryptoJS.AES.encrypt(JSON.stringify(inputValues.setPassword__passwordInp),secretPass).toString();
 
         const time = Date.now();
     

@@ -55,7 +55,12 @@ export default function SeePassword({user}) {
 
   useEffect(() =>{
     async function searchHandle (){
-      let passwrods = []
+      let passwrods = [];
+      for(let child of filter.current.children){
+        if(child){
+        child.classList.remove('seePassword__filter__item_active');
+        }
+      }
       try {
         await axios.post('http://localhost:3001/takePasswords', {email})
         .then((response) => {
