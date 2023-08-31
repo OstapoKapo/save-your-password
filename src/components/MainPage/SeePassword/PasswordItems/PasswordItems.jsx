@@ -28,6 +28,7 @@ export default function PasswordItems(props) {
 
 
    const handleCoppy = async (e) => {
+
     let target = e.target;
     let targetParent = target.closest(".contentBlock__row");
     let mainParent = target.closest('.contentBlock');
@@ -113,6 +114,9 @@ export default function PasswordItems(props) {
 
   return (
     <div className="contentBlock" id={props.appName}>
+      {/* <div className="contentBlock__avatar">
+        <img src={`http://favicongrabber.com/api/grab/dev.to`} alt="" />
+      </div> */}
       <div className="contentBlock__text">{props.appName}</div>
       <input type="password" ref={passwordInp} className='contentBlock__input' onChange={inputHandle} value={descryptPassword}/>
       <div className="contentBlock__row">
