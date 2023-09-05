@@ -76,6 +76,7 @@ async function sendSignUpData(e) {
         <input type="text "value={inputValues.signUp__inputEmail} onChange={handleChange} placeholder='Email' className='signUp__inp' name='signUp__inputEmail'/>
         <input type="password" value={inputValues.signUp__inputPassword} ref={passwordVisibility} onChange={handleChange} placeholder='Password' className='signUp__inp' name='signUp__inputPassword'/>
         <div className="signUp__row">
+          
           <input type="checkbox"  onClick={handlePasVisibility}/>Show Password
         </div>
         <button type='submit' className='signUp__btn' onClick={sendSignUpData}>Sign Up</button>

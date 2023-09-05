@@ -70,8 +70,8 @@ export default function SeePassword({user}) {
             console.error('Error:', error);
         });
     }
-    catch(error) {
-        console.log(error);
+    catch(err) {
+        console.log(err);
     }
       if(passwords){
         let newPasswords = passwrods.filter((el) => {
